@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "30377056505",
+    "firebase_url": "https://bird-2d224.firebaseio.com",
+    "project_id": "bird-2d224",
+    "storage_bucket": "bird-2d224.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30377056505:android:23b87716e8bafae87b6a28",
+        "android_client_info": {
+          "package_name": "com.example.bird"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30377056505-s80nh0o2dqokr01nsdpbf376ekt8e6l6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bird",
+            "certificate_hash": "b66cd14d1edd59f3ee9867a2436996de096d3f3e"
+          }
+        },
+        {
+          "client_id": "30377056505-0rl39ij5jm1dehqpe744qs0gkuar85lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1RtW4ndc0wtyKjhrFYD2RcVnGWFMFmxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30377056505-0rl39ij5jm1dehqpe744qs0gkuar85lc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
