@@ -46,39 +46,6 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.report) {
-
-            Intent intent = new Intent(this, MainActivity.class);
-
-            startActivity(intent);
-
-        }
-
-        else if (item.getItemId() == R.id.search);
-        {
-
-            Intent intent = new Intent(this, Report.class);
-
-            startActivity(intent);
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onClick(View view) {
 
