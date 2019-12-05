@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,7 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
 
     TextView pname, bname;
 
-    Button searchb1, report1;
+    Button searchb1, importance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,10 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
         zcode1 = findViewById(R.id.zipcodesearch);
 
         searchb1 = findViewById(R.id.searchbutton);
-        report1 = findViewById(R.id.reportbutton);
+        importance = findViewById(R.id.buttonAddImportance);
 
         searchb1.setOnClickListener(this);
-        report1.setOnClickListener(this);
-
+        importance.setOnClickListener(this);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
 
         if (view == searchb1) {
 
-            int zipcodesearch1 = Integer.parseInt(zcode1.getText().toString());
+            String zipcodesearch1 = zcode1.getText().toString();
 
             myRef.orderByChild("zipcode").equalTo(zipcodesearch1).addChildEventListener(new ChildEventListener() {
                 @Override
@@ -63,7 +63,7 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
                     Bird found = dataSnapshot.getValue(Bird.class);
 
                     String name = found.birdname;
-                    String person = found.personame;
+                    String person = found.email;
 
                     bname.setText(name);
                     pname.setText(person);
@@ -94,10 +94,86 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
             });
         }
 
-        else if (view == report1) {
-            Intent intent = new Intent(this, MainActivity.class);
 
-            startActivity(intent);
+        else if (view == importance) {
+
+            String zipcodesearch1 = zcode1.getText().toString();
+
+            myRef.orderByChild("zipcode").equalTo(zipcodesearch1).limitToLast(1).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    String key = dataSnapshot.getKey();
+
+                    Bird found = dataSnapshot.getValue(Bird.class);
+
+                    found.importance++;
+
+                    myRef.child(key).child("importance").setValue(found.importance);
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.report) {
+
+            Intent mainintent = new Intent(Report.this, MainActivity.class);
+
+            startActivity(mainintent);
+        }
+
+        else if (item.getItemId() == R.id.search) {
+
+        }
+
+        else if (item.getItemId() == R.id.logout) {
+
+            FirebaseAuth.getInstance().signOut();
+
+            Intent logoutintent = new Intent(Report.this, Login.class);
+
+            startActivity(logoutintent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.mainmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

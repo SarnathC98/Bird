@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.actions.ItemListIntents;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,8 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     EditText biname, pername, zipcode;
-    Button searchb, submitb;
+    Button submitb;
 
+    FirebaseAuth mauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pername = findViewById(R.id.pname);
         zipcode = findViewById(R.id.zcode);
 
-        searchb = findViewById(R.id.gtsbutton);
         submitb = findViewById(R.id.submitbutton);
 
-        searchb.setOnClickListener(this);
         submitb.setOnClickListener(this);
 
 
@@ -46,31 +47,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Birds");
 
-        if (view == searchb) {
-
-            Intent searchintent = new Intent(this, Report.class);
-
-            startActivity(searchintent);
-
-        } else if (view == submitb) {
+       if (view == submitb) {
 
             String birdname = biname.getText().toString();
 
             String personname = pername.getText().toString();
 
-            int zipcode1 = Integer.parseInt(zipcode.getText().toString());
+            int importance = 0;
 
-            Bird bird1 = new Bird(birdname, zipcode1, personname);
+            String zipcode1 = zipcode.getText().toString();
 
-            myRef.push().setValue(bird1);
+            String email = mauth.getInstance().getCurrentUser().getEmail().toString();
 
+           Bird bird1 = new Bird(birdname, zipcode1, personname, email, importance);
 
-
-
-
-
+           myRef.push().setValue(bird1);
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.report) {
+
+        }
+
+        else if (item.getItemId() == R.id.search) {
+
+            Intent mainintent = new Intent(MainActivity.this, Report.class);
+
+            startActivity(mainintent);
+
+        }
+
+        else if (item.getItemId() == R.id.logout) {
+
+            FirebaseAuth.getInstance().signOut();
+
+            Intent logoutintent = new Intent(MainActivity.this, Login.class);
+
+            startActivity(logoutintent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.mainmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
 }
