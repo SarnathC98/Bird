@@ -26,7 +26,7 @@ import org.w3c.dom.Text;
 public class Landing extends AppCompatActivity implements View.OnClickListener {
 
 
-    TextView birdName;
+    TextView birdName, pname, imp, email, zcode;
     Button find;
 
     @Override
@@ -38,6 +38,10 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
         //linking the two textviews, one does not need to be technically need to be linked because it is just a simple text bar
         birdName = findViewById(R.id.textViewBirdName);
         find = findViewById(R.id.buttonFind);
+        pname = findViewById(R.id.textViewPname);
+        imp = findViewById(R.id.textViewImp);
+        email = findViewById(R.id.textviewE);
+        zcode = findViewById(R.id.textviewZ);
 
         find.setOnClickListener(this);
 
@@ -60,9 +64,19 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
 
                     //extract birdname from reference
                     String bdname = dataSnapshot.getValue(Bird.class).birdname;
+                    String personname = dataSnapshot.getValue(Bird.class).personame;
+
+                    String zipcode = dataSnapshot.getValue(Bird.class).zipcode;
+                    String e = dataSnapshot.getValue(Bird.class).email;
+
+
 
                     //set the textView
                     birdName.setText(bdname);
+                    pname.setText(personname);
+                    zcode.setText(zipcode);
+                    email.setText(e);
+
 
 
 
