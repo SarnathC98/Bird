@@ -18,9 +18,4 @@ public class Bird {
 
     public Bird() {
     }
-
-
-    public void setImportance(int importance) {
-        this.importance = importance;
-    }
 }

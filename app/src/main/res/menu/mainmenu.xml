@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/landing"
+        android:title="Landing" />
+    <item
         android:id="@+id/report"
         android:title="Reporting" />
     <item

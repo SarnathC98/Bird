@@ -69,7 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.report) {
+        if (item.getItemId() == R.id.landing) {
+
+
+            Intent landingintent = new Intent(MainActivity.this, Landing.class);
+
+            startActivity(landingintent);
+
+        }
+
+
+       else if (item.getItemId() == R.id.report) {
 
         }
 

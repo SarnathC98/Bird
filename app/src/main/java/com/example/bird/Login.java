@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                Intent new1 = new Intent(Login.this, MainActivity.class);
+                                Intent new1 = new Intent(Login.this, Landing.class);
 
                                 startActivity(new1);
                             } else {
@@ -86,7 +86,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
 
-                                Intent new1 = new Intent(Login.this, MainActivity.class);
+                                Toast.makeText(Login.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+
+                                Intent new1 = new Intent(Login.this, Landing.class);
 
                                 startActivity(new1);
 

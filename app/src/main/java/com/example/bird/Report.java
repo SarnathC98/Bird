@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -54,44 +55,52 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
 
         if (view == searchb1) {
 
-            String zipcodesearch1 = zcode1.getText().toString();
+            //integer is a string in my class, thus using an if function to check length
 
-            myRef.orderByChild("zipcode").equalTo(zipcodesearch1).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            int strln = zcode1.length();
 
-                    Bird found = dataSnapshot.getValue(Bird.class);
+            if (strln == 5) {
 
-                    String name = found.birdname;
-                    String person = found.email;
+                String zipcodesearch1 = zcode1.getText().toString();
+                myRef.orderByChild("zipcode").equalTo(zipcodesearch1).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    bname.setText(name);
-                    pname.setText(person);
+                        Bird found = dataSnapshot.getValue(Bird.class);
+
+                        String name = found.birdname;
+                        String person = found.email;
+
+                        bname.setText(name);
+                        pname.setText(person);
 
 
+                    }
 
-                }
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    }
 
-                }
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    }
 
-                }
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    }
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            } else {
+                Toast.makeText(Report.this, "Invalid Zipcode", Toast.LENGTH_SHORT).show();
 
-                }
-            });
+            }
         }
 
 
@@ -145,7 +154,16 @@ public class Report extends AppCompatActivity implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.report) {
+        if (item.getItemId() == R.id.landing) {
+
+
+            Intent landingintent = new Intent(Report.this, Landing.class);
+
+            startActivity(landingintent);
+
+        }
+
+        else if (item.getItemId() == R.id.report) {
 
             Intent mainintent = new Intent(Report.this, MainActivity.class);
 
